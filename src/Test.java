@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Test {
     public static void main(String[] args) {
 
@@ -22,5 +25,138 @@ public class Test {
         Print how many students are MathStudent with message -> "Math students = {numberOfMathStudents}"
         Print how many students are ScienceStudent with message -> "Science students = {numberOfScienceStudents}"
          */
+/*
+        Scanner input = new Scanner(System.in);
+
+        int mathStudents = 0;
+        int scienceStudents = 0;
+        ArrayList<Student> students = new ArrayList<>();
+        Student student = new Student();
+
+        String className = null;
+        while (mathStudents + scienceStudents < 3) {
+
+            System.out.println(UserQuestions.askToJoin);
+            String answerToJoin = input.nextLine();
+
+            if (answerToJoin.toUpperCase().startsWith("N")) {
+                continue;
+            } else if (answerToJoin.toUpperCase().startsWith("Y")) {
+
+                System.out.println(UserQuestions.askFirstName);
+                String firstName = input.nextLine();
+                student.setFirstName(firstName);
+
+                System.out.println(UserQuestions.askLastName);
+                String lastName = input.nextLine();
+                student.setLastName(lastName);
+
+                System.out.println(UserQuestions.askAge);
+
+                int age = input.nextInt();
+                input.nextLine();
+                student.setAge(age);
+
+                try {
+                    Permission.checkAge(age);
+                } catch (RuntimeException e) {
+                    System.out.println(age + " is not allowed!");
+                    continue;
+                }
+
+                System.out.println(UserQuestions.askGender);
+                String gender = input.nextLine();
+                student.setGender(gender);
+
+                System.out.println(UserQuestions.askClassName);
+                className = input.nextLine();
+                student.setClassName(className);
+
+                if (className.equalsIgnoreCase("Math")) {
+                    student.setClassName("Math");
+                    mathStudents++;
+                } else if (className.equalsIgnoreCase("Science")) {
+                    student.setClassName("Science");
+                    scienceStudents++;
+                } else {
+                    try {
+                        Permission.checkClassName(className);
+                    } catch (RuntimeException e) {
+                        System.out.println(className + " is not allowed!");
+                        continue;
+                    }
+                }
+                students.add(student);
+                System.out.println("Congratulations! You are registered for " + student.getClassName() + " class.");
+            }
+        }
+
+
+        for (Student s : students) {
+            System.out.println(student.toString());
+        }
+        System.out.println("Math students = " + mathStudents);
+        System.out.println("Science students = " + scienceStudents);*/
+
+
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Student> students = new ArrayList<>();
+
+        int mathCount = 0;
+        int scienceCount = 0;
+        while (mathCount + scienceCount < 3) {
+            System.out.println(UserQuestions.askToJoin);
+            String answer = scanner.nextLine().toUpperCase();
+            if (answer.equals("N")) {
+                continue;
+            } else if (answer.equals("Y")) {
+                try {
+                    Student student = new Student();
+                    System.out.println(UserQuestions.askFirstName);
+                    String firstName = scanner.nextLine();
+                    student.setFirstName(firstName);
+
+                    System.out.println(UserQuestions.askLastName);
+                    String lastName = scanner.nextLine();
+                    student.setLastName(lastName);
+
+                    System.out.println(UserQuestions.askAge);
+                    int age = scanner.nextInt();
+                    scanner.nextLine();
+                    Permission.checkAge(age);
+                    student.setAge(age);
+
+                    System.out.println(UserQuestions.askGender);
+                    String gender = scanner.nextLine().toUpperCase();
+                    student.setGender(gender);
+
+                    System.out.println(UserQuestions.askClassName);
+                    String className = scanner.nextLine().toUpperCase();
+                    if (className.equals("MATH")) {
+                        student.setClassName("Math");
+                        mathCount++;
+
+                    } else if (className.equals("SCIENCE")) {
+                        student.setClassName("Science");
+                        scienceCount++;
+
+                    } else {
+                        Permission.checkClassName(className);
+                    }
+                    students.add(student);
+                    System.out.println("Congratulations! You are registered for " + className + " class." + "\n");
+                } catch (RuntimeException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
+                System.out.println("Invalid answer.");
+            }
+        }
+        for (Student student : students) {
+            System.out.println(student.toString());
+        }
+
+        System.out.println("Math students = " + mathCount);
+        System.out.println("Science students = " + scienceCount);
     }
 }
